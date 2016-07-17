@@ -30,5 +30,7 @@ namespace DeveloperUniversity.DAL
         }
 
         public System.Data.Entity.DbSet<DeveloperUniversity.Models.Student> Student { get; set; }
+        public DbSet<Enrollment> Enrollment { get; set; }
+        public DbSet<Course> Course { get; set; }
     }
 }
