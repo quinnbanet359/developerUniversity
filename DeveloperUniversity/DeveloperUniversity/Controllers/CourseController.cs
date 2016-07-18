@@ -7,6 +7,7 @@ using DeveloperUniversity.Models;
 
 namespace DeveloperUniversity.Controllers
 {
+    [AllowAnonymous]
     public class CourseController : Controller
     {
         private UniversityDbContext db = new UniversityDbContext();

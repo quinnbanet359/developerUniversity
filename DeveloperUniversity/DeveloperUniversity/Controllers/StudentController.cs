@@ -7,6 +7,7 @@ using DeveloperUniversity.Models;
 
 namespace DeveloperUniversity.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private UniversityDbContext db = new UniversityDbContext();
@@ -17,6 +18,7 @@ namespace DeveloperUniversity.Controllers
             return View(db.Student.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Student/Details/5
         public ActionResult Details(int? id)
         {
