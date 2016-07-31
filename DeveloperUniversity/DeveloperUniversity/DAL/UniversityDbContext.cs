@@ -6,7 +6,7 @@ namespace DeveloperUniversity.DAL
 {
     public class UniversityDbContext : DbContext
     {
-        public UniversityDbContext() : base("name=DbConnectionString")
+        public UniversityDbContext() : base("name=DefaultConnection")
         {
         }
 
@@ -21,10 +21,11 @@ namespace DeveloperUniversity.DAL
             //modelBuilder.Entity<Student>().HasKey(p => p.Id);
 
             modelBuilder.Conventions.Remove<PluralizingEntitySetNameConvention>();
+
             base.OnModelCreating(modelBuilder);
         }
 
-        public System.Data.Entity.DbSet<DeveloperUniversity.Models.Student> Student { get; set; }
+        public DbSet<Student> Student { get; set; }
         public DbSet<Enrollment> Enrollment { get; set; }
         public DbSet<Course> Course { get; set; }
 
