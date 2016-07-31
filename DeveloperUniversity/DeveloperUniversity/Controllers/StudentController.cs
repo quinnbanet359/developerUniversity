@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using DeveloperUniversity.DAL;
 using DeveloperUniversity.Models;
 
 namespace DeveloperUniversity.Controllers
@@ -10,7 +9,7 @@ namespace DeveloperUniversity.Controllers
     [Authorize]
     public class StudentController : Controller
     {
-        private UniversityDbContext db = new UniversityDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Student
         public ActionResult Index()

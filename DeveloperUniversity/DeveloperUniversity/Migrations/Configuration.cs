@@ -6,10 +6,10 @@ namespace DeveloperUniversity.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(DeveloperUniversity.Models.ApplicationDbContext context)
+        protected override void Seed(Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

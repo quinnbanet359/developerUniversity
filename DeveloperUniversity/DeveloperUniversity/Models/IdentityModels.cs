@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -25,9 +26,26 @@ namespace DeveloperUniversity.Models
         {
         }
 
+        //Note: Adding ApplicationDbContext inside the ASP .NET Idenity Context
+        //      creates application model tables when logging into site (when context runs)
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //Note: Could do mapping here for each DbSet instead of creating separate mapping files.
+            //modelBuilder.Entity<Student>().HasKey(p => p.Id);
+
+            modelBuilder.Conventions.Remove<PluralizingEntitySetNameConvention>();
+
+            base.OnModelCreating(modelBuilder);
+        }
+        public DbSet<Student> Student { get; set; }
+        public DbSet<Enrollment> Enrollment { get; set; }
+        public DbSet<Course> Course { get; set; }
+
     }
 }
