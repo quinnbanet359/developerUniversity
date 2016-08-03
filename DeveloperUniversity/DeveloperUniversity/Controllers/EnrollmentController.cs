@@ -6,6 +6,7 @@ using DeveloperUniversity.Models;
 
 namespace DeveloperUniversity.Controllers
 {
+    [Authorize]
     public class EnrollmentController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
