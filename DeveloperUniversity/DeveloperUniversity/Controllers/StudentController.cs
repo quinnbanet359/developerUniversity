@@ -33,6 +33,7 @@ namespace DeveloperUniversity.Controllers
             return View(student);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Student/Create
         public ActionResult Create()
         {
@@ -42,6 +43,7 @@ namespace DeveloperUniversity.Controllers
         // POST: Student/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,LastName,FirstName,EnrollmentDate")] Student student)
@@ -56,6 +58,7 @@ namespace DeveloperUniversity.Controllers
             return View(student);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -71,9 +74,11 @@ namespace DeveloperUniversity.Controllers
             return View(student);
         }
 
+
         // POST: Student/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,LastName,FirstName,EnrollmentDate")] Student student)
@@ -88,6 +93,7 @@ namespace DeveloperUniversity.Controllers
         }
 
         // GET: Student/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -103,6 +109,7 @@ namespace DeveloperUniversity.Controllers
         }
 
         // POST: Student/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
