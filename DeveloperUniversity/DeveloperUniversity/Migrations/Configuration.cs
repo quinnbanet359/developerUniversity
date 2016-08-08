@@ -1,28 +1,113 @@
+using System;
+using System.Collections.Generic;
+using DeveloperUniversity.Models;
+
 namespace DeveloperUniversity.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var student1 = new Student
+            {
+                FirstName = "Tyler",
+                LastName = "Blake",
+                Address = "1 Cardinal Way",
+                City = "Louisville",
+                State = "Kentucky",
+                ZipCode = 40222,
+                EnrollmentDate = new DateTime(2012, 1, 1),
+                Enrollments = new List<Enrollment>()
+            };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var student2 = new Student()
+            {
+                FirstName = "Jane",
+                LastName = "Doe",
+                Address = "101 Cardinal Way",
+                City = "Louisville",
+                State = "Kentucky",
+                ZipCode = 40222,
+                EnrollmentDate = new DateTime(2013, 8, 1),
+                Enrollments = new List<Enrollment>()
+
+            };
+
+            var student3 = new Student()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Address = "201 Cardinal Way",
+                City = "Louisville",
+                State = "Kentucky",
+                ZipCode = 40222,
+                EnrollmentDate = new DateTime(2013, 5, 1),
+                Enrollments = new List<Enrollment>()
+            };
+
+            var enrollment1 = new Enrollment()
+            {
+                Grade = Grade.B
+            };
+            var enrollment2 = new Enrollment()
+            {
+                Grade = Grade.A
+            };
+            var enrollment3 = new Enrollment()
+            {
+                Grade = Grade.A
+            };
+
+            var course1 = new Course()
+            {
+                Id = 1,
+                Credits = 3,
+                Enrollments = new List<Enrollment>(),
+                Title = "CIS 411"
+            };
+            var course2 = new Course()
+            {
+                Id = 2,
+                Credits = 3,
+                Enrollments = new List<Enrollment>(),
+                Title = "CIS 420"
+            };
+            var course3 = new Course()
+            {
+                Id = 3,
+                Credits = 3,
+                Enrollments = new List<Enrollment>(),
+                Title = "CIS 450"
+            };
+
+            context.Student.AddOrUpdate(student1);
+            context.Student.AddOrUpdate(student2);
+            context.Student.AddOrUpdate(student3);
+
+            context.Course.AddOrUpdate(course1);
+            context.Course.AddOrUpdate(course2);
+            context.Course.AddOrUpdate(course3);
+
+            context.Enrollment.AddOrUpdate(enrollment1);
+            context.Enrollment.AddOrUpdate(enrollment2);
+            context.Enrollment.AddOrUpdate(enrollment3);
+
+            student1.Enrollments.Add(enrollment1);
+            student2.Enrollments.Add(enrollment2);
+            student3.Enrollments.Add(enrollment3);
+
+            course1.Enrollments.Add(enrollment1);
+            course2.Enrollments.Add(enrollment2);
+            course3.Enrollments.Add(enrollment3);
+
+            context.SaveChanges();
         }
     }
 }

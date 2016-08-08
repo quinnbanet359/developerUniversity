@@ -13,6 +13,10 @@
 
     public enum Grade
     {
-        A,B,C,D,F
+        A = 'A',
+        B = 'B',
+        C = 'C',
+        D = 'D',
+        F = 'F'
     }
 }
