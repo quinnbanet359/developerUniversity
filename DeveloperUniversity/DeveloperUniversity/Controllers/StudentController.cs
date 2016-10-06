@@ -14,7 +14,7 @@ namespace DeveloperUniversity.Controllers
 
         public ActionResult Index()
         {
-            var students = db.Student.Select(s => new StudentIndexViewModel()
+            var students = db.Students.Select(s => new StudentIndexViewModel()
             {
                 Id = s.Id,
                 FirstName = s.FirstName,
@@ -32,7 +32,7 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Student.Find(id);
+            Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -63,7 +63,7 @@ namespace DeveloperUniversity.Controllers
                     ZipCode = vm.ZipCode,
                     State = vm.State
                 };
-                db.Student.Add(student);
+                db.Students.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -78,7 +78,7 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Student.Find(id);
+            Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -94,7 +94,7 @@ namespace DeveloperUniversity.Controllers
         {
             if (ModelState.IsValid)
             {
-                var student = db.Student.FirstOrDefault(s => s.Id == vm.Id);
+                var student = db.Students.FirstOrDefault(s => s.Id == vm.Id);
 
                 if (student != null)
                 {
@@ -117,7 +117,7 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Student.Find(id);
+            Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -130,8 +130,8 @@ namespace DeveloperUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Student student = db.Student.Find(id);
-            db.Student.Remove(student);
+            Student student = db.Students.Find(id);
+            db.Students.Remove(student);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

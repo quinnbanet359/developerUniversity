@@ -15,7 +15,7 @@ namespace DeveloperUniversity.Controllers
         // GET: Course
         public ActionResult Index()
         {
-            return View(db.Course.ToList());
+            return View(db.Courses.ToList());
         }
 
         // GET: Course/Details/5
@@ -25,7 +25,7 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Course.Find(id);
+            Course course = db.Courses.Find(id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -48,7 +48,7 @@ namespace DeveloperUniversity.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Course.Add(course);
+                db.Courses.Add(course);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -63,7 +63,7 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Course.Find(id);
+            Course course = db.Courses.Find(id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -94,7 +94,7 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Course.Find(id);
+            Course course = db.Courses.Find(id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -107,8 +107,8 @@ namespace DeveloperUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Course.Find(id);
-            db.Course.Remove(course);
+            Course course = db.Courses.Find(id);
+            db.Courses.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

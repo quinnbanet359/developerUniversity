@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using DeveloperUniversity.Models;
-using DeveloperUniversity.Models.ViewModels;
 
 namespace DeveloperUniversity.Migrations
 {
@@ -88,17 +87,17 @@ namespace DeveloperUniversity.Migrations
                 Title = "CIS 450"
             };
 
-            context.Student.AddOrUpdate(student1);
-            context.Student.AddOrUpdate(student2);
-            context.Student.AddOrUpdate(student3);
+            context.Students.AddOrUpdate(student1);
+            context.Students.AddOrUpdate(student2);
+            context.Students.AddOrUpdate(student3);
 
-            context.Course.AddOrUpdate(course1);
-            context.Course.AddOrUpdate(course2);
-            context.Course.AddOrUpdate(course3);
+            context.Courses.AddOrUpdate(course1);
+            context.Courses.AddOrUpdate(course2);
+            context.Courses.AddOrUpdate(course3);
 
-            context.Enrollment.AddOrUpdate(enrollment1);
-            context.Enrollment.AddOrUpdate(enrollment2);
-            context.Enrollment.AddOrUpdate(enrollment3);
+            context.Enrollments.AddOrUpdate(enrollment1);
+            context.Enrollments.AddOrUpdate(enrollment2);
+            context.Enrollments.AddOrUpdate(enrollment3);
 
             student1.Enrollments.Add(enrollment1);
             student2.Enrollments.Add(enrollment2);

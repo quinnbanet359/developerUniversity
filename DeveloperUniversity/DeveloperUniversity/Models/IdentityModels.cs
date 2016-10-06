@@ -50,8 +50,9 @@ namespace DeveloperUniversity.Models
         }
         //We must add DbSets here for each table we want Entity Framework to generate.
         //Then we must add a mapping file to tell Entity Framework HOW we want those tables generated.
-        public DbSet<Student> Student { get; set; }
-        public DbSet<Enrollment> Enrollment { get; set; }
-        public DbSet<Course> Course { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Event> Events { get; set; }
     }
 }

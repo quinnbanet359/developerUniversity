@@ -14,7 +14,7 @@ namespace DeveloperUniversity.Controllers
         // GET: Enrollment
         public ActionResult Index()
         {
-            var enrollment = db.Enrollment.Include(e => e.Course).Include(e => e.Student);
+            var enrollment = db.Enrollments.Include(e => e.Course).Include(e => e.Student);
             return View(enrollment.ToList());
         }
 
@@ -25,7 +25,7 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enrollment enrollment = db.Enrollment.Find(id);
+            Enrollment enrollment = db.Enrollments.Find(id);
             if (enrollment == null)
             {
                 return HttpNotFound();
@@ -36,8 +36,8 @@ namespace DeveloperUniversity.Controllers
         // GET: Enrollment/Create
         public ActionResult Create()
         {
-            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title");
-            ViewBag.StudentId = new SelectList(db.Student, "Id", "LastName");
+            ViewBag.CourseId = new SelectList(db.Courses, "Id", "Title");
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "LastName");
             return View();
         }
 
@@ -50,13 +50,13 @@ namespace DeveloperUniversity.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Enrollment.Add(enrollment);
+                db.Enrollments.Add(enrollment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title", enrollment.CourseId);
-            ViewBag.StudentId = new SelectList(db.Student, "Id", "LastName", enrollment.StudentId);
+            ViewBag.CourseId = new SelectList(db.Courses, "Id", "Title", enrollment.CourseId);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "LastName", enrollment.StudentId);
             return View(enrollment);
         }
 
@@ -67,13 +67,13 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enrollment enrollment = db.Enrollment.Find(id);
+            Enrollment enrollment = db.Enrollments.Find(id);
             if (enrollment == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title", enrollment.CourseId);
-            ViewBag.StudentId = new SelectList(db.Student, "Id", "LastName", enrollment.StudentId);
+            ViewBag.CourseId = new SelectList(db.Courses, "Id", "Title", enrollment.CourseId);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "LastName", enrollment.StudentId);
             return View(enrollment);
         }
 
@@ -90,8 +90,8 @@ namespace DeveloperUniversity.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseId = new SelectList(db.Course, "Id", "Title", enrollment.CourseId);
-            ViewBag.StudentId = new SelectList(db.Student, "Id", "LastName", enrollment.StudentId);
+            ViewBag.CourseId = new SelectList(db.Courses, "Id", "Title", enrollment.CourseId);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "LastName", enrollment.StudentId);
             return View(enrollment);
         }
 
@@ -102,7 +102,7 @@ namespace DeveloperUniversity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enrollment enrollment = db.Enrollment.Find(id);
+            Enrollment enrollment = db.Enrollments.Find(id);
             if (enrollment == null)
             {
                 return HttpNotFound();
@@ -115,8 +115,8 @@ namespace DeveloperUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Enrollment enrollment = db.Enrollment.Find(id);
-            db.Enrollment.Remove(enrollment);
+            Enrollment enrollment = db.Enrollments.Find(id);
+            db.Enrollments.Remove(enrollment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
