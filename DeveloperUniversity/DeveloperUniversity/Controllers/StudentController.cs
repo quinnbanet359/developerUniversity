@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using DeveloperUniversity.Models;
+using DeveloperUniversity.Models.ViewModels;
 
 namespace DeveloperUniversity.Controllers
 {
@@ -11,14 +12,20 @@ namespace DeveloperUniversity.Controllers
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Student
         public ActionResult Index()
         {
-            return View(db.Student.ToList());
+            var students = db.Student.Select(s => new StudentIndexViewModel()
+            {
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                EnrollmentDate = s.EnrollmentDate
+            });
+            
+            return View(students);
         }
 
         [Authorize(Roles = "Admin")]
-        // GET: Student/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -34,32 +41,37 @@ namespace DeveloperUniversity.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        // GET: Student/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Student/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,LastName,FirstName,EnrollmentDate")] Student student)
+        public ActionResult Create(StudentCreateViewModel vm)
         {
             if (ModelState.IsValid)
             {
+                var student = new Student()
+                {
+                    Address = vm.Address,
+                    City = vm.City,
+                    EnrollmentDate = vm.EnrollmentDate,
+                    FirstName = vm.FirstName,
+                    LastName = vm.LastName,
+                    ZipCode = vm.ZipCode,
+                    State = vm.State
+                };
                 db.Student.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            return View(vm);
         }
 
         [Authorize(Roles = "Admin")]
-        // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,24 +87,29 @@ namespace DeveloperUniversity.Controllers
         }
 
 
-        // POST: Student/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,LastName,FirstName,EnrollmentDate")] Student student)
+        public ActionResult Edit(StudentIndexViewModel vm)
         {
             if (ModelState.IsValid)
             {
+                var student = db.Student.FirstOrDefault(s => s.Id == vm.Id);
+
+                if (student != null)
+                {
+                    student.FirstName = vm.FirstName;
+                    student.LastName = vm.LastName;
+                    student.EnrollmentDate = vm.EnrollmentDate;
+                }
+
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(student);
+            return View(vm);
         }
 
-        // GET: Student/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
@@ -108,7 +125,6 @@ namespace DeveloperUniversity.Controllers
             return View(student);
         }
 
-        // POST: Student/Delete/5
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

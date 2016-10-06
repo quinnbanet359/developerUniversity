@@ -4,6 +4,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 using DeveloperUniversity.Models;
+using DeveloperUniversity.Models.ViewModels;
 
 namespace DeveloperUniversity.Mapping
 {

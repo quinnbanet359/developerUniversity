@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DeveloperUniversity.Models;
+using DeveloperUniversity.Models.ViewModels;
 
 namespace DeveloperUniversity.Migrations
 {
@@ -62,7 +63,7 @@ namespace DeveloperUniversity.Migrations
             };
             var enrollment3 = new Enrollment()
             {
-                Grade = Grade.A
+                Grade = Grade.C
             };
 
             var course1 = new Course()

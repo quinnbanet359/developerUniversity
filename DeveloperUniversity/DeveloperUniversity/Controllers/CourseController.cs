@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using DeveloperUniversity.Models;
+using DeveloperUniversity.Models.ViewModels;
 
 namespace DeveloperUniversity.Controllers
 {

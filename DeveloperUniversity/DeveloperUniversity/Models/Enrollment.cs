@@ -1,10 +1,14 @@
-﻿namespace DeveloperUniversity.Models
+﻿using System.ComponentModel.DataAnnotations;
+using DeveloperUniversity.Models.ViewModels;
+
+namespace DeveloperUniversity.Models
 {
     public class Enrollment
     {
         public int Id { get; set; }
         public int CourseId { get; set; }
         public int StudentId { get; set; }
+        [EnumDataType(typeof(Grade))]
         public Grade? Grade { get; set; }
 
         public virtual Course Course { get; set; }
@@ -13,10 +17,6 @@
 
     public enum Grade
     {
-        A = 'A',
-        B = 'B',
-        C = 'C',
-        D = 'D',
-        F = 'F'
+        A,B,C,D,F
     }
 }
