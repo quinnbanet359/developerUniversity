@@ -37,7 +37,7 @@ namespace DeveloperUniversity.Controllers
             if (ModelState.IsValid)
             {
                 MailMessage mail = new MailMessage();
-                mail.To.Add("testpesg@gmail.com");
+                mail.To.Add("gmailAddress");
                 mail.From = new MailAddress(viewModel.Email);
                 mail.Subject = "Contact Form Submission";
                 string Body = viewModel.Messge;
@@ -48,7 +48,7 @@ namespace DeveloperUniversity.Controllers
                 smtp.Port = 587;
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new System.Net.NetworkCredential
-                ("testpesg@gmail.com", "pesgWelcome1");// Enter senders User name and password  
+                ("gmailAddress", "gmailPassword");
                 smtp.EnableSsl = true;
                 smtp.Send(mail);
                 return View("Index");
