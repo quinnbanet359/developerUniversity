@@ -58,37 +58,6 @@ namespace DeveloperUniversity.Controllers
                 return View();
             }
 
-            //if (ModelState.IsValid)
-            //{
-
-            //    StringBuilder message = new StringBuilder();
-            //    MailAddress from = new MailAddress(viewModel.Email);
-            //    message.Append("Name: " + viewModel.Name + "\n");
-            //    message.Append("Email: " + viewModel.Email + "\n");
-            //    message.Append(viewModel.Messge);
-
-            //    MailMessage mail = new MailMessage();
-
-            //    SmtpClient smtp = new SmtpClient();
-
-            //    smtp.Host = "smtp.gmail.com";
-            //    smtp.Port = 587;
-
-            //    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("testpesg@gmail.com", "pesgWelcome1");
-
-            //    smtp.Credentials = credentials;
-            //    //smtp.UseDefaultCredentials = false;
-            //    smtp.EnableSsl = true;
-
-
-            //    mail.From = from;
-            //    mail.To.Add("testpesg@gmail.com");
-            //    mail.Subject = "Test enquiry from " + viewModel.Name;
-            //    mail.Body = message.ToString();
-
-            //    smtp.Send(mail);
-            //}
-            //return View();
         }
     }
 }
