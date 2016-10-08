@@ -7,17 +7,11 @@ namespace DeveloperUniversity.Mapping
     {
         public EventMapping()
         {
-            HasKey(p => p.EventId);
+            HasKey(p => p.id);
 
-            Property(p => p.Description).IsRequired();
-            Property(p => p.EventStartDate).IsOptional();
-            Property(p => p.EventEndDate).IsRequired();
-            Property(p => p.EventName).IsRequired();
-            Property(p => p.EventType).IsRequired();
-            Property(p => p.EventTime).IsRequired();
-
-            Property(p => p.AttendenceCost).IsOptional();
+            Property(p => p.text);
+            Property(p => p.start_date).IsOptional();
+            Property(p => p.end_date).IsRequired();
         }
-
     }
 }

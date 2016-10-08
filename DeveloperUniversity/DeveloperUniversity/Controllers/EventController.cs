@@ -10,63 +10,53 @@ namespace DeveloperUniversity.Controllers
 {
     public class EventController : Controller
     {
-        private ApplicationDbContext _db = new ApplicationDbContext();
+        //Refer to this link in order to set up the Calendar.
+        //http://scheduler-net.com/docs/simple-.net-mvc-application-with-scheduler.html#step_2_add_the_scheduler_reference
+
+        public readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         public ActionResult Index()
         {
-            var scheduler = new DHXScheduler(this);
-            scheduler.Skin = DHXScheduler.Skins.Flat;
-
-            scheduler.Config.first_hour = 6;
-            scheduler.Config.last_hour = 20;
-
-            scheduler.LoadData = true;
-            scheduler.EnableDataprocessor = true;
-
+            var scheduler = new DHXScheduler(this); //initializes dhtmlxScheduler
+            scheduler.LoadData = true;// allows loading data
+            scheduler.EnableDataprocessor = true;// enables DataProcessor in order to enable implementation CRUD operations
             return View(scheduler);
         }
-        [HttpPost]
-        public ContentResult Data(DateTime from, DateTime to)
+
+        public ActionResult Data()
         {
-            var apps = _db.Events.Where(e => e.EventStartDate < to && e.EventEndDate >= from).ToList();
-            return new SchedulerAjaxData(apps);
-        }
-        [HttpGet]
-        public ContentResult Data()
-        {
-            var apps = _db.Set<Event>().ToList();
-            return new SchedulerAjaxData(apps);
+            //events for loading to scheduler
+            return new SchedulerAjaxData(_db.Events);
         }
 
-        public ActionResult Save(int? id, FormCollection actionValues)
+        public ActionResult Save(Event updatedEvent, FormCollection formData)
         {
-            var action = new DataAction(actionValues);
+            var action = new DataAction(formData);
 
             try
             {
-                var changedEvent = DHXEventsHelper.Bind<Event>(actionValues);
                 switch (action.Type)
                 {
-                    case DataActionTypes.Insert:
-                        Event EV = new Event();
-                        EV.Description = changedEvent.Description;
-                        EV.EventName = changedEvent.EventName;
-                        EV.EventStartDate = changedEvent.EventStartDate;
-                        EV.EventEndDate = changedEvent.EventEndDate;
-                        EV.Description = changedEvent.Description;
-                        _db.Events.Add(EV);
-                        _db.SaveChanges();
-
+                    case DataActionTypes.Insert: // your Insert logic
+                        _db.Events.Add(updatedEvent);
+                        break;
+                    case DataActionTypes.Delete: // your Delete logic
+                        updatedEvent = _db.Events.SingleOrDefault(ev => ev.id == updatedEvent.id);
+                        _db.Events.Remove(updatedEvent);
+                        break;
+                    default:// "update" // your Update logic
+                        updatedEvent = _db.Events.SingleOrDefault(
+                        ev => ev.id == updatedEvent.id);
+                        UpdateModel(updatedEvent);
                         break;
                 }
                 _db.SaveChanges();
-                action.TargetId = Convert.ToInt64(changedEvent.EventId);
+                action.TargetId = updatedEvent.id;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 action.Type = DataActionTypes.Error;
             }
-
             return (new AjaxSaveResponse(action));
         }
     }
