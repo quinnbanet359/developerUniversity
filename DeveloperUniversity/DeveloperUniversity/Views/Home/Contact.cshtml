@@ -1,17 +1,31 @@
-﻿@{
+﻿@using reCAPTCHA.MVC
+@model DeveloperUniversity.Models.ViewModels.MailViewModel
+
+@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>@ViewBag.Title</h2>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+@using (Html.BeginForm("Contact", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "contact-form", role = "form" }))
+{
+    @Html.ValidationSummary()
+    <fieldset>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Name, new { @placeholder = "Name", @type = "text" })
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email Address", @type = "email" })
+        </div>
+        <div class="form-group">
+            @Html.TextAreaFor(m => m.Messge, new { @placeholder = "Message" })
+        </div>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        @Html.Recaptcha()
+        @Html.ValidationMessage("ReCaptcha")
+
+        <div class="button-wrapper">
+            <input type="submit" value="Send" name="submit" class="btn btn-success">
+            <input type="reset" value="Reset" name="MFReset" class="btn btn-default">
+        </div>
+    </fieldset>
+}

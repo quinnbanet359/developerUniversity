@@ -1,6 +1,7 @@
 ﻿using System.Net.Mail;
 using System.Web.Mvc;
 using DeveloperUniversity.Models.ViewModels;
+using reCAPTCHA.MVC;
 
 namespace DeveloperUniversity.Controllers
 {
@@ -18,8 +19,25 @@ namespace DeveloperUniversity.Controllers
             return View();
         }
 
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [CaptchaValidator(
+        PrivateKey = "6LehwAgUAAAAACXHKuFtJmdZWWPvf7--XsaZiRsw",
+        ErrorMessage = "Invalid input captcha.",
+        RequiredMessage = "The captcha field is required.")]
         public ActionResult Contact(MailViewModel viewModel)
         {
+            //For help on setting up the captcha visit the link below and refer to the "Quick Start" guide.
+            //http://recaptchamvc.apphb.com/
+
+
+            //To get your site and private keys for the captcha, visit the link below.
+            // https://www.google.com/recaptcha/intro/index.html
+
 
             //Below is how to set up a contact form for GMAIL ONLY!.
 
