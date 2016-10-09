@@ -9,6 +9,9 @@ namespace DeveloperUniversity.Controllers
 {
     public class UserManagementController : Controller
     {
+        //Refer to this github repo for another example of how to do this.
+        //https://github.com/TypecastException/AspNetRoleBasedSecurityExample/blob/master/AspNetRoleBasedSecurity/Views/Account/Edit.cshtml
+
         readonly ApplicationDbContext _db = new ApplicationDbContext();
 
 
