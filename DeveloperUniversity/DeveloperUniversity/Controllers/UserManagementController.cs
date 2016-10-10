@@ -23,6 +23,7 @@ namespace DeveloperUniversity.Controllers
             foreach (var user in users)
             {
                 var u = new SelectUserRolesViewModel(user);
+                u.Id = user.Id;
                 model.Add(u);
             }
             return View(model);
@@ -30,12 +31,12 @@ namespace DeveloperUniversity.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(string id, ManageController.ManageMessageId? Message = null)
+        public ActionResult Edit(string id)
         {
             var Db = new ApplicationDbContext();
             var user = Db.Users.FirstOrDefault(u => u.Id == id);
             var model = new EditUserViewModel(user);
-            ViewBag.MessageId = Message;
+            //ViewBag.MessageId = Message;
             return View(model);
         }
 
